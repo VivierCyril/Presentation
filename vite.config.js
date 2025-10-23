@@ -16,7 +16,7 @@ export default defineConfig({
                 chunkFileNames: "[name].js"
             },
             input: {
-                main: resolve(__dirname, 'index.html'),
+                main: resolve(__dirname, 'src/index.html'),
             },
         },
     },
