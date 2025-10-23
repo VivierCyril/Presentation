@@ -2,18 +2,15 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Branche à surveiller pour déclencher le workflow
+    branches: ["main"]
 
-  # Permet de lancer le workflow manuellement depuis l'onglet Actions
   workflow_dispatch:
 
-# Autorisations nécessaires pour déployer sur GitHub Pages
 permissions:
   contents: write
   pages: write
   id-token: write
 
-# Limite la concurrence pour éviter les conflits
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -36,5 +33,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: './dist'
+
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v3
+        id: deployment
+        uses: actions/deploy-pages@v2
